@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28218.60
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LOHAllocations", "LOHAllocations\LOHAllocations.csproj", "{9EF420AD-EF9B-4653-97D4-DB59F00988AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockingCalls", "BlockingCalls\BlockingCalls.csproj", "{DE81DBED-B8DB-45FE-9A13-CC65F99F4E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfTests", "PerfTests\PerfTests.csproj", "{3C25F088-35AE-4B41-89B3-7859C58532DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1DBACF3E-05F5-4A12-8CF5-A984A3B28472}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChattyDataAccess", "ChattyDataAccess\ChattyDataAccess.csproj", "{F267BDF0-B38C-4BAC-8029-7A6994047DFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CombinedDemo", "CombinedDemo\CombinedDemo.csproj", "{80D9E0D5-7D5F-4489-A928-13F38A619B1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EF420AD-EF9B-4653-97D4-DB59F00988AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF420AD-EF9B-4653-97D4-DB59F00988AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF420AD-EF9B-4653-97D4-DB59F00988AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF420AD-EF9B-4653-97D4-DB59F00988AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE81DBED-B8DB-45FE-9A13-CC65F99F4E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE81DBED-B8DB-45FE-9A13-CC65F99F4E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE81DBED-B8DB-45FE-9A13-CC65F99F4E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE81DBED-B8DB-45FE-9A13-CC65F99F4E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C25F088-35AE-4B41-89B3-7859C58532DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C25F088-35AE-4B41-89B3-7859C58532DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C25F088-35AE-4B41-89B3-7859C58532DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C25F088-35AE-4B41-89B3-7859C58532DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F267BDF0-B38C-4BAC-8029-7A6994047DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F267BDF0-B38C-4BAC-8029-7A6994047DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F267BDF0-B38C-4BAC-8029-7A6994047DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F267BDF0-B38C-4BAC-8029-7A6994047DFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D9E0D5-7D5F-4489-A928-13F38A619B1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D9E0D5-7D5F-4489-A928-13F38A619B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D9E0D5-7D5F-4489-A928-13F38A619B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D9E0D5-7D5F-4489-A928-13F38A619B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71612D27-5179-4DC4-8217-213129AA9CB8}
+	EndGlobalSection
+EndGlobal

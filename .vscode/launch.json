@@ -15,27 +15,55 @@
             "cwd": "${workspaceFolder}/src/LOHAllocations",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
-            "launchBrowser": {
-                "enabled": true,
-                "args": "${auto-detect-url}",
-                "windows": {
-                    "command": "cmd.exe",
-                    "args": "/C start ${auto-detect-url}"
-                },
-                "osx": {
-                    "command": "open"
-                },
-                "linux": {
-                    "command": "xdg-open"
-                }
-            },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
             }
         },
+        {
+            "name": ".NET Core Launch Chatty Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildChatty",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/ChattyDataAccess/bin/Debug/netcoreapp2.1/ChattyDataAccess.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/ChattyDataAccess",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": ".NET Core Launch Blocking Calls Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildAsync",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/BlockingCalls/bin/Debug/netcoreapp2.1/BlockingCalls.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/BlockingCalls",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        {
+            "name": ".NET Core Launch Combined Demo",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildCombined",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/CombinedDemo/bin/Debug/netcoreapp2.1/CombinedDemo.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/CombinedDemo",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },                        
         {
             "name": ".NET Core Attach",
             "type": "coreclr",

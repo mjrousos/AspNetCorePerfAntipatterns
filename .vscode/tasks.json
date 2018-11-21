@@ -10,6 +10,36 @@
                 "${workspaceFolder}/src/LOHAllocations/LOHAllocations.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildChatty",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/ChattyDataAccess/ChattyDataAccess.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildAsync",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/BlockingCalls/BlockingCalls.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "buildCombined",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/CombinedDemo/CombinedDemo.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

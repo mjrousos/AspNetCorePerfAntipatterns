@@ -312,7 +312,7 @@ namespace CombinedDemo.Controllers
 
             // Ideally, this API would only access SQL once, but the fact that the stock
             // checking service is external complicates matters. If we knew that products were usually
-            // in stock, it might be quicker to just retrieve product photos for all category
+            // in stock, it might be quicker to just retrieve product photos for all products 
             // and filter out those that aren't in stock afterwards. Since that change could have either
             // positive or negative performance impact depending on the data set, performance testing
             // would be needed to determine which is best.

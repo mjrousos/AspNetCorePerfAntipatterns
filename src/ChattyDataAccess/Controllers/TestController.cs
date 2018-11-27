@@ -47,6 +47,9 @@ namespace ChattyDataAccess.Controllers
 
                 foreach (var id in ProductIds)
                 {
+                    // In this example, we know the list of product IDs formatted into the command is valid.
+                    // In general, though, you should be careful about constructing SQL commands from strings
+                    // in case SQL injection attacks are possible.
                     var commandText = string.Format(GetThumbnailSlow, id);
                 
                     using (var command = new SqlCommand(commandText, connection))
@@ -85,6 +88,9 @@ namespace ChattyDataAccess.Controllers
             using (var md5 = MD5.Create())
             using (var connection = new SqlConnection(_configuration["ConnectionString"]))
             {
+                // In this example, we know the list of product IDs formatted into the command is valid.
+                // In general, though, you should be careful about constructing SQL commands from strings
+                // in case SQL injection attacks are possible.
                 var commandText = string.Format(GetThumbnailFast, string.Join(',', ProductIds));
 
                 using (var command = new SqlCommand(commandText, connection))

@@ -83,6 +83,10 @@ namespace CombinedDemo.Controllers
                 // Iterate through in-stock products, retrieve images and store hashes
                 foreach (var id in inStockProductIds)
                 {
+                    // In this example, we know the product IDs formatted into the command are valid since
+                    // they come directly from a previous query that users can't influence.
+                    // In general, though, you should be careful about constructing SQL commands from strings
+                    // in case SQL injection attacks are possible.
                     var commandText = $"select ThumbNailPhoto from SalesLT.Product where ProductID = {id}";
 
                     // Executing a SQL command in a for loop is a red flag
@@ -164,6 +168,10 @@ namespace CombinedDemo.Controllers
                 // Iterate through in-stock products, retrieve images and store hashes
                 foreach (var id in inStockProductIds)
                 {
+                    // In this example, we know the product IDs formatted into the command are valid since
+                    // they come directly from a previous query that users can't influence.
+                    // In general, though, you should be careful about constructing SQL commands from strings
+                    // in case SQL injection attacks are possible.
                     var commandText = $"select ThumbNailPhoto from SalesLT.Product where ProductID = {id}";
 
                     using (var command = new SqlCommand(commandText, connection))
@@ -248,6 +256,10 @@ namespace CombinedDemo.Controllers
                 // Iterate through in-stock products, retrieve images and store hashes
                 foreach (var id in inStockProductIds)
                 {
+                    // In this example, we know the product IDs formatted into the command are valid since
+                    // they come directly from a previous query that users can't influence.
+                    // In general, though, you should be careful about constructing SQL commands from strings
+                    // in case SQL injection attacks are possible.
                     var commandText = $"select ThumbNailPhoto from SalesLT.Product where ProductID = {id}";
 
                     using (var command = new SqlCommand(commandText, connection))
@@ -342,7 +354,10 @@ namespace CombinedDemo.Controllers
                 await connection.OpenAsync();
 
                 // This improved SQL query retrieves photos for all relevant products at once instead of
-                // using multiple queries to get the same information
+                // using multiple queries to get the same information.
+                // As before, you should be cautious about constructing SQL commands from strings like this
+                // in case of possible SQL injection attacks. In this case, we know the strings formatted in
+                // have come directly from a query for product IDs which users are not able to set.
                 var commandText = $"select ThumbNailPhoto from SalesLT.Product where ProductID in ({string.Join(',', inStockProductIds)})";
 
                 // Retrieve thumbnails (and compute hashes) for in-stock products

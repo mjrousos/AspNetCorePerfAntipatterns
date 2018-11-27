@@ -69,7 +69,7 @@ namespace CombinedDemo.Controllers
             foreach (var id in productIDs)
             {
                 // Task.Result should be a red flag. This needs to be async
-                if (ProductIsInStock(id).Result)
+                if (ProductIsInStockAsync(id).Result)
                 {
                     inStockProductIds.Add(id);
                 }
@@ -150,7 +150,7 @@ namespace CombinedDemo.Controllers
             foreach (var id in productIDs)
             {
                 // Task.Result should be a red flag. This needs to be async
-                if (ProductIsInStock(id).Result)
+                if (ProductIsInStockAsync(id).Result)
                 {
                     inStockProductIds.Add(id);
                 }
@@ -234,7 +234,7 @@ namespace CombinedDemo.Controllers
                 // Calling ProductIsInStock asynchronously is important
                 // as it allows other requests to be processed while waiting
                 // for the remote service to return.
-                if (await ProductIsInStock(id))
+                if (await ProductIsInStockAsync(id))
                 {
                     inStockProductIds.Add(id);
                 }
@@ -330,7 +330,7 @@ namespace CombinedDemo.Controllers
             // for those calls to return)
             await Task.WhenAll(productIDs.Select(async id =>
             {
-                if (await ProductIsInStock(id))
+                if (await ProductIsInStockAsync(id))
                 {
                     inStockProductIds.Add(id);
                 }
@@ -374,7 +374,7 @@ namespace CombinedDemo.Controllers
             return Ok(hashes);
         }
 
-        private async Task<bool> ProductIsInStock(int productId)
+        private async Task<bool> ProductIsInStockAsync(int productId)
         {
             // This method mimcs a call to another service to check stock
             await Task.Delay(30);

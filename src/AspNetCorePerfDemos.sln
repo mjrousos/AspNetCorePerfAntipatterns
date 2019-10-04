@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28218.60
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LOHAllocations", "LOHAllocations\LOHAllocations.csproj", "{9EF420AD-EF9B-4653-97D4-DB59F00988AF}"
 EndProject
@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1DBACF3E-05F5-4A12-8CF5-A984A3B28472}"
 	ProjectSection(SolutionItems) = preProject
 		Local.testsettings = Local.testsettings
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChattyDataAccess", "ChattyDataAccess\ChattyDataAccess.csproj", "{F267BDF0-B38C-4BAC-8029-7A6994047DFF}"

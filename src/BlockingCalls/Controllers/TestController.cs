@@ -28,7 +28,8 @@ namespace BlockingCalls.Controllers
         {
             var results = new List<string>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 // This could be (and should be) async
                 connection.Open();
@@ -58,7 +59,8 @@ namespace BlockingCalls.Controllers
         {
             var results = new List<string>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
 

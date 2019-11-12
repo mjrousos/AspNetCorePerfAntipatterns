@@ -40,7 +40,8 @@ namespace CombinedDemo.Controllers
             // Product IDs
             var productIDs = new List<int>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 // This should, of course, be async
@@ -75,7 +76,7 @@ namespace CombinedDemo.Controllers
                 }
             }
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 connection.Open();
@@ -125,7 +126,8 @@ namespace CombinedDemo.Controllers
             // Product IDs
             var productIDs = new List<int>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 // This should, of course, be async
@@ -160,7 +162,7 @@ namespace CombinedDemo.Controllers
                 }
             }
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 connection.Open();
@@ -214,7 +216,8 @@ namespace CombinedDemo.Controllers
             // Product IDs
             var productIDs = new List<int>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 await connection.OpenAsync();
@@ -302,7 +305,8 @@ namespace CombinedDemo.Controllers
             // Product IDs
             var productIDs = new List<int>();
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 await connection.OpenAsync();
@@ -348,7 +352,7 @@ namespace CombinedDemo.Controllers
                 }
             }));
 
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
                 await connection.OpenAsync();

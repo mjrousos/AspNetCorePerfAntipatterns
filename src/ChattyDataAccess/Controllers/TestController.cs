@@ -40,8 +40,10 @@ namespace ChattyDataAccess.Controllers
         {
             var hashes = new List<string>();
 
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+
             using (var md5 = MD5.Create())
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            using (var connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
 
@@ -85,9 +87,13 @@ namespace ChattyDataAccess.Controllers
         {
             var hashes = new List<string>();
 
+            var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+
             using (var md5 = MD5.Create())
-            using (var connection = new SqlConnection(_configuration["ConnectionString"]))
+            using (var connection = new SqlConnection(connectionString))
             {
+                await connection.OpenAsync();
+
                 // In this example, we know the list of product IDs formatted into the command is valid.
                 // In general, though, you should be careful about constructing SQL commands from strings
                 // in case SQL injection attacks are possible.

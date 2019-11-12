@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,8 @@ namespace BlockingCalls.Controllers
             var results = new List<string>();
 
             var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            var sw = new Stopwatch();
+            sw.Start();
             using (var connection = new SqlConnection(connectionString))
             {
                 // This could be (and should be) async
@@ -44,6 +47,8 @@ namespace BlockingCalls.Controllers
                     }
                 }
             }
+            sw.Stop();
+            DemoCounterSource.Log.RecordResponseTime(sw.ElapsedMilliseconds);
 
             // Add an extra 100ms delay since the SQL query can be quite fast when run in Azure
             // Using Task.Wait should be a red flag since it's turning an asynchronous task into
@@ -60,6 +65,8 @@ namespace BlockingCalls.Controllers
             var results = new List<string>();
 
             var connectionString = _configuration["ConnectionStringBase"].Replace("{PASSWORD}", _configuration["DatabasePassword"]);
+            var sw = new Stopwatch();
+            sw.Start();
             using (var connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
@@ -73,6 +80,8 @@ namespace BlockingCalls.Controllers
                     }
                 }
             }
+            sw.Stop();
+            DemoCounterSource.Log.RecordResponseTime(sw.ElapsedMilliseconds);
 
             // Add an extra 100ms delay since the SQL query can be quite fast when run in Azure
             await Task.Delay(100);

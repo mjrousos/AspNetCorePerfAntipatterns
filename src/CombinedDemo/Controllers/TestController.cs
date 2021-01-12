@@ -116,9 +116,9 @@ namespace CombinedDemo.Controllers
             return Ok(hashes);
         }
 
-        // Use ArrayPool<byte> instead of allocating large byte[]s
+        // Make async
         [HttpGet("Test2")]
-        public ActionResult<IEnumerable<string>> GetInStockThumbnailHashes2()
+        public async Task<ActionResult<IEnumerable<string>>> GetInStockThumbnailHashes2()
         {
             // List of hashes to return
             var hashes = new List<string>();
@@ -131,15 +131,13 @@ namespace CombinedDemo.Controllers
             {
                 // Open the SQL connection
                 // This should, of course, be async
-                connection.Open();
+                await connection.OpenAsync();
 
                 // Store all returned product IDs
                 using (var command = new SqlCommand(GetMountainBikesQuery, connection))
-                
-                // Both ExecuteReader and Read should be async
-                using (var reader = command.ExecuteReader())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         productIDs.Add(reader.GetInt32(0));
                     }
@@ -147,16 +145,15 @@ namespace CombinedDemo.Controllers
 
                 // Close the connection for now since determining which products 
                 // are in stock can take a moment and we don't want to exhaust SQL connections
-                connection.Close();
+                await connection.CloseAsync();
             }
 
             var inStockProductIds = new List<int>();
-            
+
             // Filter for in-stock products
             foreach (var id in productIDs)
             {
-                // Task.Result should be a red flag. This needs to be async
-                if (ProductIsInStockAsync(id).Result)
+                if (await ProductIsInStockAsync(id))
                 {
                     inStockProductIds.Add(id);
                 }
@@ -165,7 +162,7 @@ namespace CombinedDemo.Controllers
             using (var connection = new SqlConnection(connectionString))
             {
                 // Open the SQL connection
-                connection.Open();
+                await connection.OpenAsync();
 
                 // Iterate through in-stock products, retrieve images and store hashes
                 foreach (var id in inStockProductIds)
@@ -176,37 +173,33 @@ namespace CombinedDemo.Controllers
                     // in case SQL injection attacks are possible.
                     var commandText = $"select ThumbNailPhoto from SalesLT.Product where ProductID = {id}";
 
+                    // Executing a SQL command in a for loop is a red flag
                     using (var command = new SqlCommand(commandText, connection))
-                    using (var reader = command.ExecuteReader())
+                    using (var reader = await command.ExecuteReaderAsync())
                     using (var md5 = MD5.Create())
                     {
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
-                            // Using a byte[] rented from an ArrayPool avoids
-                            // the frequent allocation and clean-up of large objects
-                            // that the previous version of this API had.
-                            var thumbnail = ArrayPool<byte>.Shared.Rent(100 * 1000);
-                            try
-                            {
-                                var bytesRead = reader.GetBytes(0, 0, thumbnail, 0, thumbnail.Length);
-                                hashes.Add(Convert.ToBase64String(md5.ComputeHash(thumbnail, 0, (int)bytesRead)));
-                            }
-                            finally
-                            {
-                                // Arrays from ArrayPools need returned once they're no longer needed
-                                ArrayPool<byte>.Shared.Return(thumbnail);
-                            }
+                            // Allocating a new byte[] for every product will result in a lot of memory
+                            // pressure and many gen 2 garbage collections
+                            var thumbnail = new byte[100 * 1000];
+                            var bytesRead = reader.GetBytes(0, 0, thumbnail, 0, thumbnail.Length);
+
+                            // Computing an MD5 hash can be slow but is an example of the sort of compute-bound
+                            // work that is hard to optimize away without caching results or completing the calculations
+                            // out-of-process
+                            hashes.Add(Convert.ToBase64String(md5.ComputeHash(thumbnail, 0, (int)bytesRead)));
                         }
                     }
                 }
 
-                connection.Close();
+                await connection.CloseAsync();
             }
 
             return Ok(hashes);
         }
 
-        // Make async
+        // Use ArrayPool<byte> instead of allocating large byte[]s
         [HttpGet("Test3")]
         public async Task<ActionResult<IEnumerable<string>>> GetInStockThumbnailHashes3()
         {

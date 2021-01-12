@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testapp
+  selfLink: /api/v1/namespaces/default/pods/testapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testapp
+      component: combinedservice
+  template:
+    metadata:
+      labels:
+        app: testapp
+        component: combinedservice
+    spec:
+      containers:
+        - name: testapp
+          image: mjrousos/aspnetcoreantipatterns:1.1
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: "1"
+          env:
+          - name: "DatabasePassword"
+            valueFrom:
+              secretKeyRef:
+                name: database-password
+                key: password
+          # - name: "COMPlus_PerfMapEnabled"
+          #   value: "1"
+          # - name: "COMPlus_EnableEventLog"
+          #   value: "1"          
+          # securityContext:
+          #   capabilities:
+          #     # SYS_ADMIN is needed for PerfCollect, SYS_PTRACE is needed for createdump
+          #     add: ["SYS_ADMIN", "SYS_PTRACE"]
+
+
+          # # This volume mount is only needed if profiling with dotnet-trace from a sidecar
+          # volumeMounts:
+          #   - name: tmp
+          #     mountPath: /tmp
+          # # These env vars are only needed if profiling with PerfCollect
+          # env:
+          #   - name: COMPlus_PerfMapEnabled
+          #     value: "1"
+          #   - name: COMPlus_EnableEventLog
+          #     value: "1"
+          #   # This env var would only be necessary if using perfcollect
+          #   # from the testapp container. It isn't needed when perfcollect
+          #   # is run from the sidecar since the sidecar has crossgen.
+          #   # - name: COMPlus_ZapDisable
+          #   #  value: "1"

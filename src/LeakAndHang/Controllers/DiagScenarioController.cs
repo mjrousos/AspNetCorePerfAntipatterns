@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
-namespace testwebapi.Controllers
+namespace LeakAndHang.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,7 +17,7 @@ namespace testwebapi.Controllers
 
         [HttpGet]
         [Route("deadlock/")]
-        public ActionResult<string> deadlock()
+        public ActionResult<string> Deadlock()
         {
             (new System.Threading.Thread(() =>
             {
@@ -62,7 +60,7 @@ namespace testwebapi.Controllers
 
         [HttpGet]
         [Route("memspike/{seconds}")]
-        public ActionResult<string> memspike(int seconds)
+        public ActionResult<string> Memspike(int seconds)
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -97,7 +95,7 @@ namespace testwebapi.Controllers
 
         [HttpGet]
         [Route("memleak/{kb}")]
-        public ActionResult<string> memleak(int kb)
+        public ActionResult<string> Memleak(int kb)
         {
 
             int it = (kb * 1000) / 100;
@@ -112,7 +110,7 @@ namespace testwebapi.Controllers
 
         [HttpGet]
         [Route("exception")]
-        public ActionResult<string> exception()
+        public ActionResult<string> Exception()
         {
 
             throw new Exception("bad, bad code");
@@ -121,13 +119,23 @@ namespace testwebapi.Controllers
 
         [HttpGet]
         [Route("highcpu/{milliseconds}")]
-        public ActionResult<string> highcpu(int milliseconds)
+        public ActionResult<string> Highcpu(int milliseconds)
         {
+            var numberGenerator = new Random();
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
             while (true)
             {
+                for (var i = 0; i < 10000; i++)
+                {
+                    // Some dummy work that will eat some CPU
+                    if (numberGenerator.Next(1000) == 1001)
+                    {
+                        break;
+                    }
+                }
+
                 watch.Stop();
                 if (watch.ElapsedMilliseconds > milliseconds)
                     break;
@@ -142,31 +150,31 @@ namespace testwebapi.Controllers
 
     class Customer
     {
-        private string id;
+        public string Id { get; }
 
         public Customer(string id)
         {
-            this.id = id;
+            Id = id;
         }
     }
 
     class CustomerCache
     {
-        private List<Customer> cache = new List<Customer>();
+        private readonly List<Customer> _cache = new List<Customer>();
 
         public void AddCustomer(Customer c)
         {
-            cache.Add(c);
+            _cache.Add(c);
         }
     }
 
     class Processor
     {
-        private CustomerCache cache = new CustomerCache();
+        private readonly CustomerCache _cache = new CustomerCache();
 
         public void ProcessTransaction(Customer customer)
         {
-            cache.AddCustomer(customer);
+            _cache.AddCustomer(customer);
         }
     }
 

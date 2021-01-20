@@ -47,11 +47,12 @@ Since the perf tests only hit a single endpoint each, you can also test with
 simpler performance tools like 
 [Apache Bench](https://httpd.apache.org/docs/2.4/programs/ab.html), 
 [Siege](https://github.com/JoeDog/siege), 
+[Hey](https://github.com/rakyll/hey),
 or any number of other load testing tools.
 
 ## Requirements, Building, and Running
 
-All projects can be built and launched with the [dotnet CLI](https://docs.microsoft.com/dotnet/core/tools/?tabs=netcore2x) 
+All projects can be built and launched with the [dotnet CLI](https://docs.microsoft.com/dotnet/core/tools/) 
 (`dotnet run`).
 
 ### Database Requirement

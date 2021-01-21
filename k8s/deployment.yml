@@ -15,9 +15,12 @@ spec:
         app: testapp
         component: combinedservice
     spec:
+      volumes:
+      - name: dump-volume
+        emptyDir: {}          
       containers:
         - name: testapp
-          image: mjrousos/aspnetcoreantipatterns:1.1
+          image: mjrousos/aspnetcoreantipatterns:2.3
           ports:
             - containerPort: 80
           resources:
@@ -30,16 +33,21 @@ spec:
               secretKeyRef:
                 name: database-password
                 key: password
-          # - name: "COMPlus_PerfMapEnabled"
+          # - name: "COMPlus_DbgEnableMiniDump"
           #   value: "1"
-          # - name: "COMPlus_EnableEventLog"
-          #   value: "1"          
+          # - name: "COMPlus_DbgMiniDumpName"
+          #   value: "/dumps/coredump.%d"
+
+          # This volume mount is only needed to preserve createdump-created dumps
+          # volumeMounts:
+          #   - mountPath: /dumps
+          #     name: dump-volume
+
           # securityContext:
           #   capabilities:
           #     # SYS_ADMIN is needed for PerfCollect, SYS_PTRACE is needed for createdump
           #     add: ["SYS_ADMIN", "SYS_PTRACE"]
-
-
+          
           # # This volume mount is only needed if profiling with dotnet-trace from a sidecar
           # volumeMounts:
           #   - name: tmp

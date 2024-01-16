@@ -5,6 +5,6 @@
     <UserSecretsId>af3c501c-9010-469f-af0f-515cb7813d16</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 </Project>
